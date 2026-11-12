@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tile Room</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background: #dfe6ee;
+      }
+      #app {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        outline: none;
+      }
+      .overlay {
+        position: fixed;
+        font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        color: #e8eef4;
+        background: rgba(16, 20, 26, 0.72);
+        border-radius: 6px;
+        padding: 8px 10px;
+        pointer-events: none;
+        user-select: none;
+        white-space: pre;
+      }
+      #stats {
+        top: 10px;
+        left: 10px;
+        display: none;
+      }
+      #hint {
+        bottom: 46px;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: opacity 0.2s;
+      }
+      #speed {
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 3px 8px;
+        font-size: 11px;
+        min-width: 56px;
+        text-align: center;
+      }
+      #crosshair {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 4px;
+        height: 4px;
+        margin: -2px 0 0 -2px;
+        border-radius: 50%;
+        background: rgba(20, 24, 30, 0.75);
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6);
+        pointer-events: none;
+      }
+      #ammo {
+        right: 14px;
+        bottom: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 6px 12px;
+      }
+      #ammo.empty {
+        color: #ffb066;
+      }
+      #prompt {
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        color: #9fe9ff;
+      }
+      /* Hitmarker: four ticks around the crosshair, drawn with gradients. */
+      #hitmarker {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 26px;
+        height: 26px;
+        margin: -13px 0 0 -13px;
+        pointer-events: none;
+        opacity: 0;
+        transform: rotate(45deg) scale(0.8);
+        background:
+          linear-gradient(#fff, #fff) center top / 2px 8px no-repeat,
+          linear-gradient(#fff, #fff) center bottom / 2px 8px no-repeat,
+          linear-gradient(#fff, #fff) left center / 8px 2px no-repeat,
+          linear-gradient(#fff, #fff) right center / 8px 2px no-repeat;
+        filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.8));
+        transition: opacity 0.12s, transform 0.12s;
+      }
+      #hitmarker.show {
+        opacity: 1;
+        transform: rotate(45deg) scale(1);
+        transition: none;
+      }
+      #hitmarker.kill {
+        transform: rotate(45deg) scale(1.45);
+        filter: drop-shadow(0 0 2px #ff3b30) brightness(0) saturate(100%) invert(36%) sepia(93%) saturate(4000%) hue-rotate(346deg);
+      }
+      #mode {
+        top: 10px;
+        right: 10px;
+        display: none;
+        color: #ffb066;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="app" tabindex="0"></canvas>
+    <div id="stats" class="overlay"></div>
+    <div id="mode" class="overlay">FREE-FLY</div>
+    <div id="crosshair"></div>
+    <div id="hitmarker"></div>
+    <div id="ammo" class="overlay"></div>
+    <div id="prompt" class="overlay"></div>
+    <div id="speed" class="overlay">0.0 m/s</div>
+    <div id="hint" class="overlay">Click to capture mouse · LMB fire · RMB throw · E pick up · WASD · Space · Shift · C slide · L switch level</div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
